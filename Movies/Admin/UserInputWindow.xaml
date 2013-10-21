@@ -1,0 +1,53 @@
+﻿<Window x:Class="Movies.Admin.UserInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Movies" 
+        DataContext="{StaticResource UserInputViewModel}"
+        Title="UserInputWindow" Height="189" Width="300" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="24,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Name" />
+        <TextBlock HorizontalAlignment="Left" Margin="24,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Username" />
+        <TextBlock HorizontalAlignment="Left" Margin="24,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Password" />
+        <TextBlock HorizontalAlignment="Left" Margin="24,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Role" />
+
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175">
+            <TextBox.Text>
+                <Binding Path="EditingUser.Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <local:RequiredValidationRule ErrorMessage="*" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175">
+            <TextBox.Text>
+                <Binding Path="EditingUser.Username" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <local:RequiredValidationRule ErrorMessage="*" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175">
+            <TextBox.Text>
+                <Binding Path="EditingUser.Password" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <local:RequiredValidationRule ErrorMessage="*" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox HorizontalAlignment="Left" Margin="97,96,0,0" VerticalAlignment="Top" Width="175"
+                  ItemsSource="{Binding Roles}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="ID"
+                  SelectedValue="{Binding EditingUser.RoleID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        >
+        </ComboBox>
+
+        <Button Content="Save" HorizontalAlignment="Left" Margin="117,123,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Save}"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="197,123,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+
+
+    </Grid>
+</Window>
