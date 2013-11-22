@@ -2,9 +2,6 @@
 using Movies.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -24,6 +21,11 @@ namespace Movies.ViewModels.Admin
 
         public ICommand Save { get; internal set; }
 
+        public delegate void OnSaved(User u);
+        public event OnSaved Saved;
+
+        public EventHandler Closing { get; internal set; }
+
         public UserInputViewModel()
         {
             EditingUser = new User();
@@ -34,6 +36,16 @@ namespace Movies.ViewModels.Admin
                     if (UserService.Validate(EditingUser))
                     {
                         UserService.AddOrUpdate(EditingUser);
+
+                        if (Saved != null)
+                        {
+                            Saved(EditingUser);
+                        }
+
+                        if (Closing != null)
+                        {
+                            Closing(null, EventArgs.Empty);
+                        }
                     }
                     else
                     {

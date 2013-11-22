@@ -1,14 +1,11 @@
-﻿using Movies.Infrastructure;
+﻿using Movies.Domain;
+using Movies.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Data.Objects.DataClasses;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Movies.Services
 {
-    public class ServiceBase<T> where T: class
+    public class ServiceBase<T> where T: IEntity
     {
         public static IQueryable<T> Get()
         {
@@ -17,13 +14,13 @@ namespace Movies.Services
 
         public static T Get(int id)
         {
-            return EntityFactory.Current.Set<T>().FirstOrDefault(o => (int)(o as EntityObject).EntityKey.EntityKeyValues[0].Value == id);
+            return EntityFactory.Current.Set<T>().FirstOrDefault(o => o.ID == id);
         }
 
         public static void Add(T o)
         {
-            //EntityFactory.Current.Set<T>().Add(o);
-            //EntityFactory.Current.SaveChanges();
+            EntityFactory.Current.Set<T>().Add(o);
+            EntityFactory.Current.SaveChanges();
         }
 
         public static void Update()
@@ -31,9 +28,9 @@ namespace Movies.Services
             EntityFactory.Current.SaveChanges();
         }
 
-        public static void AddOrUpdate(T o)
+        public static void AddOrUpdate(T o) 
         {
-            if ((int)(o as EntityObject).EntityKey.EntityKeyValues[0].Value > 0)
+            if (o.ID > 0)
             {
                 Update();
             }

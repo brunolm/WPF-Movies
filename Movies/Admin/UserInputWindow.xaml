@@ -1,8 +1,9 @@
-﻿<Window x:Class="Movies.Admin.UserInputWindow"
+﻿<!--DataContext="{StaticResource UserInputViewModel}"-->
+    <Window x:Class="Movies.Admin.UserInputWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Movies" 
-        DataContext="{StaticResource UserInputViewModel}"
+        
         Title="UserInputWindow" Height="189" Width="300" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="24,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Name" />

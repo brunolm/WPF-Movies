@@ -26,7 +26,14 @@ namespace Movies.ViewModels.Admin
             Add = new RelayCommand(
                 (o) =>
                 {
-                    WindowHelper.OpenChildWindow(new UserInputWindow());
+                    var userInputWindow = new UserInputWindow();
+
+                    userInputWindow.Saved += (u) =>
+                    {
+                        Users.Add(u);
+                    };
+
+                    WindowHelper.OpenChildWindow(userInputWindow);
                 }
             );
 
